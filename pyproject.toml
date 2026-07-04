@@ -1,6 +1,6 @@
 [project]
 name = "pykx-dbapi"
-version = "0.1.0"
+version = "0.1.1"
 description = "PEP 249 (DB-API 2.0) wrapper around pykx IPC connections — query kdb+/q from marimo notebooks and other DB-API consumers"
 readme = "README.md"
 license = "MIT"
