@@ -4,7 +4,8 @@ build:
 	rm -rf dist && uv build
 
 publish: build
-	. ~/.secrets/pypi && uv publish
+	. ~/.secrets/pypi && uv publish && \
+	v=v$$(uv version --short) && git tag $$v && git push origin $$v
 
 # ponytail: timestamp as devN — unique every run, no counter state to track
 publish-test:

@@ -9,7 +9,8 @@ It wraps a `pykx.SyncQConnection` in the standard `connect()` /
 [ADBC](https://arrow.apache.org/adbc/) extension methods marimo consumes:
 query results flow as **Arrow** (near zero-copy into polars), and marimo's
 datasources panel can browse tables and column types via q's `tables[]` and
-`meta`. marimo auto-detects the connection — no plugins or configuration.
+`meta`. marimo auto-detects the connection — no plugins needed (one optional
+config line fills the datasources panel; see Caveats).
 Queries are **q/qSQL text sent to the server verbatim**; there is no SQL
 translation.
 
@@ -101,7 +102,17 @@ happens: `mo.sql("0!{...} ...", engine=conn)`.
 
 - marimo treats `kdb` as a remote dialect and won't introspect eagerly. To
   populate the datasources panel automatically, enable discovery in marimo's
-  config (`datasources: auto_discover_schemas/tables/columns`).
+  config — in your project's `pyproject.toml`:
+
+  ```toml
+  [tool.marimo.datasources]
+  auto_discover_schemas = true
+  auto_discover_tables = true
+  auto_discover_columns = true
+  ```
+
+  (or the same keys under `[datasources]` in `~/.config/marimo/marimo.toml`
+  to enable it globally).
 - marimo's optional SQL-validation feature prefixes queries with `EXPLAIN`,
   which q rejects. Harmless — it surfaces as a validation warning; leave
   validation off for this connection.

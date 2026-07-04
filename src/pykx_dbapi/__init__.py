@@ -234,9 +234,8 @@ def _vector_pa(vector: Any) -> pa.Array:
 def _pa_failure(table: Any, arrow_only: bool, error: Exception) -> pa.Table:
     if arrow_only:
         raise NotSupportedError(
-            "pykx could not convert this result to Arrow (commonly nested "
-            "vector columns of temporals, from a select-by without "
-            "aggregation); reshape it server-side (e.g. ungroup) or use "
+            "pykx could not convert this result to Arrow (e.g. mixed-type "
+            "or deeply nested columns); reshape it server-side or use "
             "connect(arrow_only=False) to allow a Python-object fallback"
         ) from error
     return _table_from_py(table)
